@@ -12,12 +12,20 @@ import qualified Monads.Dot as Dot
 import qualified QC.SkewHeap as SH
 import qualified QC.Heap as H
 
--- | 
+-- | General functions to traverse any heap.
 class Heapable h where
+  -- | Returns the "left" node. The left node of a nil node is nil.
   left :: Ord a => h a -> h a
+
+  -- | Returns the "right" node. The right node of a nil node is nil.
   right :: Ord a => h a -> h a
+
+  -- | True if the heap is empty.
   isEmpty :: Ord a => h a -> Bool
-  value :: Ord a => h a -> a -- runtime error for nil nodes
+
+  -- | Returns the value at the given node.
+  -- Behavior is undefined if the given heap is empty.
+  value :: Ord a => h a -> a
 
 instance Heapable SH.Heap where
   left SH.Nil = SH.Nil

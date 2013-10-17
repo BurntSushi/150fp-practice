@@ -53,6 +53,8 @@ delete (Node l r v) = merge l r
 
 heapify = foldl insert empty
 
+-- | Implements the alternating left/right subtree merge which makes
+-- this a skew tree.
 merge Nil h = h
 merge h Nil = h
 merge n1 n2 = Node (merge (right s) b) (left s) (value s)
