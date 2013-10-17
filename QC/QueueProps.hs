@@ -1,9 +1,9 @@
-module QueueProps where
+module QC.QueueProps where
 
 import Test.QuickCheck (Property, property, quickCheck)
 
 -- import Q 
-import PQueue
+import QC.PQueue
 
 lastItem :: Ord a => Q a -> a
 lastItem q = if isEmpty (rest q) then get q else lastItem (rest q)

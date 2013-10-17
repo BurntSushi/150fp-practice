@@ -1,10 +1,10 @@
-module PQueue where
+module QC.PQueue where
 
 import Control.Monad (liftM2)
 import Test.QuickCheck (Arbitrary, arbitrary, shrink)
 import Text.Printf (printf)
 
-import qualified Heap as H
+import qualified QC.Heap as H
 
 data Clocked a = Clocked { ticks :: Int, value :: a }
 

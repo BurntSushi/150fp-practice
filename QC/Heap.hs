@@ -6,6 +6,7 @@ where
 
 import Control.Monad (liftM)
 import Data.List (sort)
+import Data.Monoid (Monoid, mappend, mempty)
 import Test.QuickCheck
 import Text.Printf (printf)
 
@@ -13,6 +14,10 @@ data Heap a = Nil
             | Node { left :: Heap a, right :: Heap a, value :: a }
             deriving Eq
             -- a min-heap
+
+instance Ord a => Monoid (Heap a) where
+  mempty = empty
+  mappend = merge
 
 instance Show a => Show (Heap a) where
   show = show' 0
