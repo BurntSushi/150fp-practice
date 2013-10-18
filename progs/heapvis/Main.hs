@@ -56,26 +56,33 @@ instance (Heapable h, Show a, Ord a) => Dot.Node (h a) where
   name = show . value
   label _ = Nothing
 
+-- | Graphs any value satisfying `Heapable`.
 heapVis :: (Monoid (h a), Heapable h, Dot.Node (h a), Show a, Ord a) =>
            h a ->
            Dot.Dotter (h a) ()
 heapVis = vis mempty
   where vis p node =
-          if isEmpty node then return () else do
+          unless (isEmpty node) $ do
             unless (isEmpty p) (Dot.addEdge p node)
             Dot.addNode node
             vis node (left node)
             vis node (right node)
 
+-- | Translates any value satisfying `Heapable` to its Dot representation.
 dotit :: (Monoid (h a), Heapable h, Show a, Ord a) => h a -> String
 dotit = Dot.eval . heapVis
 
-pickHeap :: [String] -> [Int] -> String
+-- | Picks a heap based on command line arguments and translates it to
+-- its Dot representation using a random list of integers as labels.
+pickHeap :: [String] -- ^ Command line arguments.
+            -> [Int] -- ^ Random list of integers.
+            -> String -- ^ Dot code.
 pickHeap [] = dotit . SH.heapify
 pickHeap ["skew"] = dotit . SH.heapify
 pickHeap ["heap"] = dotit . H.heapify
 pickHeap bunk = error ("unrecognized heap " ++ concat bunk)
 
+-- Outputs a random dot graph using the heap specified.
 main :: IO ()
 main = do
   args <- getArgs
