@@ -1,5 +1,6 @@
 build:
 	cabal build
+	@mkdir -p ./bin
 	cp ./dist/build/heapvis/heapvis ./bin/
 
 clean:
