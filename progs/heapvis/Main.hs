@@ -13,6 +13,8 @@ import qualified Monads.Dot as Dot
 import qualified QC.SkewHeap as SH
 import qualified QC.Heap as H
 
+import qualified QC.RBTree as RB
+
 -- | General functions to traverse any heap.
 class Heapable h where
   -- | Returns the "left" node. The left node of a nil node is nil.
@@ -27,6 +29,19 @@ class Heapable h where
   -- | Returns the value at the given node.
   -- Behavior is undefined if the given heap is empty.
   value :: Ord a => h a -> a
+
+instance Heapable RB.RBTree where
+    left RB.Empty = RB.Empty
+    left (RB.Node _ l x r) = l
+
+    right RB.Empty = RB.Empty
+    right (RB.Node _ l x r) = r
+
+    isEmpty RB.Empty = True
+    isEmpty _ = False
+
+    value RB.Empty = error "this doesn't make sense"
+    value (RB.Node _ _ x _) = x
 
 instance Heapable SH.Heap where
   left SH.Nil = SH.Nil
@@ -80,6 +95,7 @@ pickHeap :: [String] -- ^ Command line arguments.
 pickHeap [] = dotit . SH.heapify
 pickHeap ["skew"] = dotit . SH.heapify
 pickHeap ["heap"] = dotit . H.heapify
+pickHeap ["rb"] = dotit . RB.rbify
 pickHeap bunk = error ("unrecognized heap " ++ concat bunk)
 
 -- Outputs a random dot graph using the heap specified.
