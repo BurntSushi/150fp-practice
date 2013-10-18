@@ -34,9 +34,9 @@ put (Q heap clock) x = Q (H.insert heap (Clocked clock x)) (clock + 1)
 get = value . H.peek . elems
 rest (Q heap clock) = Q (H.delete heap) clock
 
-instance (Arbitrary a, Ord a) => Arbitrary (Q a) where
-  arbitrary = liftM2 Q arbitrary arbitrary
-
-instance Arbitrary a => Arbitrary (Clocked a) where
-  arbitrary = liftM2 Clocked arbitrary arbitrary
+-- instance (Arbitrary a, Ord a) => Arbitrary (Q a) where 
+  -- arbitrary = liftM2 Q arbitrary arbitrary 
+--  
+-- instance Arbitrary a => Arbitrary (Clocked a) where 
+  -- arbitrary = liftM2 Clocked arbitrary arbitrary 
 
