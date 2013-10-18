@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleInstances #-}
 module Main where
 
 import Control.Monad (unless)
@@ -51,19 +52,20 @@ instance Heapable H.Heap where
   value H.Nil = error "no value for Nil nodes"
   value (H.Node _ _ v) = v
 
-heapVis :: (Monoid (h a), Heapable h, Show a, Ord a) =>
+instance (Heapable h, Show a, Ord a) => Dot.Node (h a) where
+  name = show . value
+  label _ = Nothing
+
+heapVis :: (Monoid (h a), Heapable h, Dot.Node (h a), Show a, Ord a) =>
            h a ->
-           Dot.Dotter Dot.SimpleNode ()
+           Dot.Dotter (h a) ()
 heapVis = vis mempty
-  where vis p hnode =
-          if isEmpty hnode then return () else do
-            let gnode = asGraphNode hnode
-            unless (isEmpty p) (Dot.addEdge (asGraphNode p) gnode)
-            Dot.addNode gnode
-            vis hnode (left hnode)
-            vis hnode (right hnode)
-  
-        asGraphNode = Dot.simpleNode . show . value
+  where vis p node =
+          if isEmpty node then return () else do
+            unless (isEmpty p) (Dot.addEdge p node)
+            Dot.addNode node
+            vis node (left node)
+            vis node (right node)
 
 dotit :: (Monoid (h a), Heapable h, Show a, Ord a) => h a -> String
 dotit = Dot.eval . heapVis

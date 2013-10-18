@@ -16,11 +16,11 @@ build-type:          Simple
 cabal-version:       >=1.8
 
 library
-  exposed-modules:     HeapVis, Monads.MRand, Monads.Dot, QC.SkewHeap, QC.Q, QC.PQueue, QC.QueueProps, QC.Heap
+  exposed-modules:     Monads.MRand, Monads.Dot, QC.SkewHeap, QC.Q, QC.PQueue, QC.QueueProps, QC.Heap
   -- other-modules:       
   build-depends:       base ==4.6.*, random ==1.0.*, QuickCheck ==2.6.*
 
 executable heapvis
-  main-is: HeapVis.hs
+  main-is: ./progs/heapvis/Main.hs
   other-modules: Monads.MRand, Monads.Dot, QC.SkewHeap, QC.Heap
   build-depends: base == 4.6.*, random == 1.0.*, QuickCheck == 2.6.*

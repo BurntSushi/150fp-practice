@@ -1,5 +1,6 @@
 module Monads.Dot
-  ( Node, SimpleNode, Dotter
+  ( Node(..)
+  , SimpleNode, Dotter
   , simpleNode, simpleNodeLabel
   , addNode, addEdge, addEdgeLabel
   , eval
