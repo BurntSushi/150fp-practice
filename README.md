@@ -3,7 +3,6 @@
 ```bash
 git clone git://github.com/BurntSushi/150fp-practice
 cd 150fp-practice
-cabal update
 cabal configure
 cabal install --only-dependencies
 cabal build
