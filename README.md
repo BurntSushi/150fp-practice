@@ -15,7 +15,8 @@ heap. In order to visualize it, you should pipe it to the `dot` program:
 ./dist/build/heapvis/heapvis heap | dot -Tpdf > heap.pdf
 ```
 
-Alternatively, visualize @ntenczar's colorless Red-Black tree:
+Alternatively, visualize [ntenczar](https://github.com/ntenczar)'s colorless 
+Red-Black tree:
 
 ```bash
 ./dist/build/heapvis/heapvis rb | dot -Tpdf > rb.pdf
