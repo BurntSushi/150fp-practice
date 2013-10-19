@@ -1,6 +1,7 @@
 ### Usage
 
 ```bash
+git clone git://github.com/BurntSushi/150fp-practice
 cabal update
 cabal configure
 cabal install --only-dependencies
